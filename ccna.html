@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار CCNA التفاعلي - النسخة الشاملة (77 سؤالاً)</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --bg: #f3f4f6;
+            --card-bg: #ffffff;
+            --text: #1f2937;
+            --success: #10b981;
+            --error: #ef4444;
+            --info-bg: #eff6ff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        .quiz-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #111827;
+            direction: ltr;
+            text-align: right;
+        }
+
+        .exhibit-container {
+            text-align: center;
+            margin-bottom: 20px;
+            background: #f8fafc;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        .exhibit-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .question-hint {
+            font-size: 13px;
+            color: #d97706;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .option-item {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 15px;
+            direction: ltr;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option-item:hover {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .option-item.selected {
+            border-color: var(--primary);
+            background: #dbeafe;
+            font-weight: bold;
+        }
+
+        .option-item.correct {
+            background: #d1fae5 !important;
+            border-color: var(--success) !important;
+            color: #065f46 !important;
+            font-weight: bold;
+        }
+
+        .option-item.incorrect {
+            background: #fee2e2 !important;
+            border-color: var(--error) !important;
+            color: #991b1b !important;
+        }
+
+        .option-item.disabled {
+            cursor: not-allowed;
+        }
+
+        .explanation-box {
+            display: none;
+            background-color: var(--info-bg);
+            border-right: 4px solid var(--primary);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 15px;
+            color: #1e3a8a;
+            text-align: right;
+            line-height: 1.6;
+        }
+
+        .explanation-box h4 {
+            margin: 0 0 5px 0;
+            color: var(--primary-dark);
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .result-screen {
+            text-align: center;
+            display: none;
+        }
+
+        .result-screen h2 {
+            color: var(--primary);
+            font-size: 28px;
+        }
+
+        .score-badge {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--success);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>اختبار CCNA التفاعلي - النسخة الشاملة</h1>
+        </header>
+
+        <div id="quiz-box">
+            <div class="quiz-info">
+                <span id="question-progress">السؤال 1 من 77</span>
+                <span id="score-tracker">النتيجة: 0</span>
+            </div>
+            
+            <div id="question-container">
+                <div id="exhibit-box" class="exhibit-container" style="display: none;">
+                    <img id="exhibit-img" src="" alt="Network Exhibit">
+                </div>
+                
+                <div class="question-text" id="question-text">جاري تحميل السؤال...</div>
+                <div class="question-hint" id="question-hint"></div>
+                
+                <ul class="options-list" id="options-list"></ul>
+
+                <div id="explanation-box" class="explanation-box">
+                    <h4>💡 الشرح والتوضيح المفصل:</h4>
+                    <p id="explanation-text"></p>
+                </div>
+            </div>
+
+            <button id="next-btn" class="btn" style="display: none;" onclick="nextQuestion()">السؤال التالي</button>
+        </div>
+
+        <div id="result-box" class="result-screen">
+            <h2>انتهى الاختبار! 🎉</h2>
+            <p>لقد أنهيت الأسئلة بنجاح. نتيجتك النهائية هي:</p>
+            <div class="score-badge" id="final-score">0 / 77</div>
+            <button class="btn" onclick="restartQuiz()">إعادة الاختبار</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                exhibit: "image_1911bf.jpg",
+                question: "Refer to the exhibit. If OSPF is running on this network, how does Router2 handle traffic from Site B to 10.10.13.128/25 at Site A?",
+                type: "single",
+                options: [
+                    "A. It load-balances traffic out of Fa0/1 and Fa0/2",
+                    "B. It sends packets out of interface Fa0/2",
+                    "C. It is unreachable and discards the traffic",
+                    "D. It sends packets out of interface Fa0/1"
+                ],
+                correct: [2],
+                explanation: "الجواب الصحيح هو C. شبكة الهدف غير موجودة في جدول التوجيه لـ Router2، وبالتالي يعتبرها غير قابلة للوصول ويسقط الحزم."
+            },
+            {
+                id: 2,
+                exhibit: null,
+                question: "Which WPA3 enhancement protects against hackers viewing traffic on the Wi-Fi network?",
+                type: "single",
+                options: [
+                    "A. TKIP encryption",
+                    "B. SAE encryption",
+                    "C. scrambled encryption key",
+                    "D. AES encryption"
+                ],
+                correct: [1],
+                explanation: "الجواب الصحيح هو B (SAE encryption). تقنية SAE تحمي عملية المصادقة وتمنع هجمات التنصت في WPA3."
+            },
+            {
+                id: 3,
+                exhibit: null,
+                question: "Which IPv6 address block sends packets to a group address rather than a single address?",
+                type: "single",
+                options: [
+                    "A. FF00::/8",
+                    "B. 2000::/3",
+                    "C. FC00::/7",
+                    "D. FE80::/10"
+                ],
+                correct: [0],
+                explanation: "الجواب الصحيح هو A (FF00::/8). هذا النطاق مخصص لعناوين البث المتعدد (Multicast) في IPv6."
+            },
+            {
+                id: 4,
+                exhibit: null,
+                question: "Which per-hop traffic-control feature does an ISP implement to mitigate the potential negative effect of a customer exceeding its committed bandwidth?",
+                type: "single",
+                options: [
+                    "A. Policing",
+                    "B. Marking",
+                    "C. Queuing",
+                    "D. Shaping"
+                ],
+                correct: [0],
+                explanation: "الجواب الصحيح هو A (Policing). خاصية Policing تقوم بإسقاط أو إعادة وسم الحزم الزائدة عن النطاق المتفق عليه."
+            },
+            {
+                id: 6,
+                exhibit: "image_191549.jpg",
+                question: "Refer to the exhibit. An engineer is configuring a Layer 3 port-channel interface with LACP. The configuration on the first device is complete, and it is verified that both interfaces have registered the neighbor device in the CDP table. Which task on the neighbor device enables the new port channel to come up without negotiating the channel?",
+                type: "single",
+                options: [
+                    "A. Configure the IP address of the neighboring device.",
+                    "B. Bring up the neighboring interfaces using the no shutdown command.",
+                    "C. Change the EtherChannel mode on the neighboring interfaces to auto.",
+                    "D. Modify the static EtherChannel configuration of the device to passive mode"
+                ],
+                correct: [3],
+                explanation: "الجواب الصحيح هو D. يتم ضبط الجهاز المجاور على وضع التوافق passive mode لتقبل تفعيل القناة دون الحاجة لمفاوضات معقدة."
+            },
+            {
+                id: 7,
+                exhibit: "image_19182b.jpg",
+                question: "Refer to the exhibit. A static route must be configured on R86 to forward traffic for the 172.16.34.0/29 network, which resides on R14. Which command must be used to fulfill the request?",
+                type: "single",
+                options: [
+                    "A. ip route 172.16.34.0 255.255.255.248 10.73.65.65",
+                    "B. ip route 172.16.34.0 255.255.255.224 10.73.65.66",
+                    "C. ip route 10.73.65.65 255.255.255.248 172.16.34.0",
+                    "D. ip route 172.16.34.0 0.0.0.7 10.73.65.64"
+                ],
+                correct: [0],
+                explanation: "الجواب الصحيح هو A. تحديد شبكة الوجهة مع القناع الفرعي الصحيح /29 (255.255.255.248) وعنوان القفزة التالية (10.73.65.65)."
+            },
+            {
+                id: 8,
+                exhibit: null,
+                question: "What are two examples of multifactor authentication? (Choose two.)",
+                type: "multiple",
+                options: [
+                    "A. passwords that expire",
+                    "B. shared password repository",
+                    "C. single sign-on",
+                    "D. soft tokens",
+                    "E. unique user knowledge"
+                ],
+                correct: [3, 4],
+                explanation: "الإجابتان الصحيحتان هما D و E (الرموز البرمجية والمعرفة الفريدة للمستخدم)."
+            },
+            {
+                id: 9,
+                exhibit: null,
+                question: "What are two functions of a firewall within an enterprise? (Choose two.)",
+                type: "multiple",
+                options: [
+                    "A. It offers Layer 2 services between hosts.",
+                    "B. It enables wireless devices to connect to the network.",
+                    "C. It serves as an endpoint for a site-to-site VPN in standalone mode.",
+                    "D. It provides support as an endpoint for a remote access VPN in multiple context mode.",
+                    "E. It enables traffic filtering based on URLs."
+                ],
+                correct: [3, 4],
+                explanation: "الإجابتان الصحيحتان هما D و E (دعم VPN للوصول عن بُعد والفلترة بناءً على عناوين الـ URLs)."
+            },
+            {
+                id: 10,
+                exhibit: null,
+                question: "In which way does a spine-and-leaf architecture allow for scalability in a network when additional access ports are required?",
+                type: "single",
+                options: [
+                    "A. A leaf switch is added with a single connection to a core spine switch.",
+                    "B. A leaf switch is added with connections to every spine switch.",
+                    "C. A spine switch is added with at least 40 GB uplinks.",
+                    "D. A spine switch and a leaf switch are added with redundant connections between them."
+                ],
+                correct: [1],
+                explanation: "الجواب الصحيح هو B. في هندسة Spine-and-Leaf، يتم التوسع بإضافة مفتاح Leaf وتوصيله بكافة مفاتيح الـ Spine."
+            },
+            {
+                id: 11,
+                exhibit: "image_1918e5.jpg",
+                question: "Refer to the exhibit. A network engineer is updating the configuration on router R1 to connect a new branch office to the company network. R2 has been configured correctly. Which command must the engineer configure so that devices at the new site communicate with the main office?",
+                type: "single",
+                options: [
+                    "A. ip route 172.25.25.0 255.255.255.0 192.168.2.2",
+                    "B. ip route 172.25.25.1 255.255.255 g0/1",
+                    "C. ip route 172.25.25.0 255.255.255.0 192.168.2.1",
+                    "D. ip route 172.25.25.1 255.255.255 g0/2"
+                ],
+                correct: [0],
+                explanation: "الجواب الصحيح هو A. إعداد مسار ثابت عبر الـ Next-hop IP الصحيح (192.168.2.2) للوصول للفرع الجديد."
+            },
+            {
+                id: 17,
+                exhibit: null,
+                question: "What are two disadvantages of a full-mesh topology? (Choose two.)",
+                type: "multiple",
+                options: [
+                    "A. It must have point-to-point communication.",
+                    "B. It requires complex configuration.",
+                    "C. It needs a high MTU between sites.",
+                    "D. It has a high implementation cost.",
+                    "E. It works only with BGP between sites."
+                ],
+                correct: [1, 3],
+                explanation: "الإجابتان الصحيحتان هما B و D. طوبولوجيا الربط الكامل تتطلب تكويناً معقداً وتكلفة تنفيذ عالية."
+            },
+            {
+                id: 20,
+                exhibit: null,
+                question: "What is the role of nonoverlapping channels in a wireless environment?",
+                type: "single",
+                options: [
+                    "A. to stabilize the RF environment",
+                    "B. to reduce interference",
+                    "C. to allow for channel bonding",
+                    "D. to increase bandwidth"
+                ],
+                correct: [1],
+                explanation: "الجواب الصحيح هو B. استخدام قنوات لا تتداخل يهدف لتقليل التداخل والتشويش الراديوي."
+            },
+            {
+                id: 21,
+                exhibit: null,
+                question: "In what way does a network supervisor reduce maintenance costs while maintaining network integrity on a traditionally managed network?",
+                type: "single",
+                options: [
+                    "A. They install an automated network-monitoring system to provide early warning of network issues.",
+                    "B. They automate change-management processes that verify issue resolution.",
+                    "C. They employ additional network administrators to proactively manage the network.",
+                    "D. They use automation to centralize network-management tasks."
+                ],
+                correct: [3],
+                explanation: "الجواب الصحيح هو D. استخدام الأتمتة لمركزة مهام إدارة الشبكة يقلل تكاليف الصيانة."
+            },
+            {
+                id: 22,
+                exhibit: null,
+                question: "A default route must be configured to use the IP address of 192.168.1.1 until a WAN circuit is installed. The WAN circuit will use a dynamic routing protocol with an Administrative Distance of 20. Which configuration must be applied to allow the dynamic route to take precedence when it is in place?",
+                type: "single",
+                options: [
+                    "A. ip route 0.0.0.0 0.0.0.0 192.168.1.1 track 1",
+                    "B. ip route 0.0.0.0 0.0.0.0 192.168.1.1 20",
+                    "C. ip route 0.0.0.0 0.0.0.0 192.168.1.1",
+                    "D. ip route 0.0.0.0 0.0.0.0 192.168.1.1 25"
+                ],
+                correct: [3],
+                explanation: "الجواب الصحيح هو D. لكي يكون المسار الديناميكي (AD=20) مفضلاً، يتم رفع الـ AD للمسار الثابت إلى قيمة أكبر (مثل 25)."
+            },
+            {
+                id: 23,
+                exhibit: null,
+                question: "Which connection type is used when an engineer connects to an AP without a configured IP address or dial-up number to manage the device?",
+                type: "single",
+                options: [
+                    "A. VTY",
+                    "B. Ethernet",
+                    "C. AUX",
+                    "D. console"
+                ],
+                correct: [3],
+                explanation: "الجواب الصحيح هو D (Console). يُستخدم للاتصال المباشر وإدارة الجهاز للمرة الأولى."
+            },
+            {
+                id: 24,
+                exhibit: null,
+                question: "Which two authentication types are used to validate user credentials for connections to a Cisco WLC? (Choose two.)",
+                type: "multiple",
+                options: [
+                    "A. Active Directory",
+                    "B. local",
+                    "C. LDAP",
+                    "D. single sign-on",
+                    "E. RADIUS"
+                ],
+                correct: [1, 4],
+                explanation: "الإجابتان الصحيحتان هما B و E (Local و RADIUS) للتحقق من اعتماد المستخدمين في متحكم WLC."
+            },
+            {
+                id: 26,
+                exhibit: null,
+                question: "What are two benefits of controller-based networking compared to traditional networking? (Choose two.)",
+                type: "multiple",
+                options: [
+                    "A. controller-based reduces network configuration complexity, while traditional increases the potential for errors",
+                    "B. controller-based inflates software costs, while traditional decreases individual licensing costs",
+                    "C. controller-based increases network bandwidth usage, while traditional lightens the load on the network",
+                    "D. controller-based provides centralization of key IT functions, while traditional requires distributed management functions",
+                    "E. controller-based allows for fewer network failures, while traditional increases failure rates"
+                ],
+                correct: [0, 3],
+                explanation: "الإجابتان الصحيحتان هما A و D (تقليل التعقيد ومركزية الإدارة)."
+            },
+            {
+                id: 28,
+                exhibit: null,
+                question: "A network engineer must migrate a router loopback interface to the IPv6 address space. If the current IPv4 address of the interface is 10.54.73.1/32, and the engineer configures IPv6 address 0:0:0:0:0:ffff:a00:0000, which prefix length must be used?",
+                type: "single",
+                options: [
+                    "A. /64",
+                    "B. /96",
+                    "C. /128",
+                    "D. /124"
+                ],
+                correct: [2],
+                explanation: "الجواب الصحيح هو C (/128). واجهات اللوبباك (Loopback) في الشبكات تُعامل عادةً كجهاز مضيف فردي (Host) وبالتالي يتطلب عنوان IPv6 الخاص بها طول بادئة /128."
+            },
+            {
+                id: 29,
+                exhibit: null,
+                question: "What event has occurred if a router sends a notice level message to a syslog server?",
+                type: "single",
+                options: [
+                    "A. A certificate has expired.",
+                    "B. A TCP connection has been torn down.",
+                    "C. An interface line has changed status.",
+                    "D. An ICMP connection has been built."
+                ],
+                correct: [2],
+                explanation: "الجواب الصحيح هو C. في مستويات سجلات Syslog، مستوى الـ Notice (Level 5) يتم تفعيله غالباً عند تغير حالة خط الواجهة (Interface line protocol state change)."
+            },
+            {
+                id: 30,
+                exhibit: null,
+                question: "What is the definition of backdoor malware?",
+                type: "single",
+                options: [
+                    "A. malicious code with the main purpose of downloading other malicious code",
+                    "B. malicious code that infects a user machine and then uses that machine to send spam",
+                    "C. malicious code that is installed onto a computer to allow access by an unauthorized user",
+                    "D. malicious program that is used to launch other malicious programs"
+                ],
+                correct: [2],
+                explanation: "الجواب الصحيح هو C. البرمجيات الخبيثة من نوع الباب الخلفي (Backdoor) يتم تثبيتها لتجاوز آليات الأمان ومنح وصول غير مصرح به للمستخدم المخترق."
+            },
+            {
+                id: 36,
+                exhibit: null,
+                question: "In which way does generative AI aid network simulations?",
+                type: "single",
+                options: [
+                    "A. It computes optimal data storage solutions.",
+                    "B. It produce a greenfield network design.",
+                    "C. It creates synthetic network configurations.",
+                    "D. It deploys network firmware updates."
+                ],
+                correct: [2],
+                explanation: "الجواب الصحيح هو C. الذكاء الاصطناعي التوليدي يساعد في محاكاة الشبكات عبر إنشاء تكوينات واختبارات شبكية اصطناعية (Synthetic network configurations)."
+            },
+            {
+                id: 38,
+                exhibit: null,
+                question: "How is AI used to identify issues within network traffic?",
+                type: "single",
+                options: [
+                    "A. It enhances data packet delivery speeds",
+                    "B. It analyzes patterns for anomaly detection",
+                    "C. It simplifies traffic route mapping.",
+                    "D. It exclusively predicts device malfunctions."
+                ],
+                correct: [1],
+                explanation: "الجواب الصحيح هو B. يُستخدم الذكاء الاصطناعي لتحليل أنماط الحركة واكتشاف الحالات الشاذة (Anomaly detection) والمشاكل."
+            },
+            {
+                id: 39,
+                exhibit: null,
+                question: "What is the function of a controller in a software-defined network?",
+                type: "single",
+                options: [
+                    "A. forwarding packets",
+                    "B. setting packet-handling policies",
+                    "C. multicast replication at the hardware level",
+                    "D. fragmenting and reassembling packages"
+                ],
+                correct: [1],
+                explanation: "الجواب الصحيح هو B. وحدة التحكم (Controller) في الشبكات المعرفة بالبرمجيات (SDN) مسؤولة عن إدارة وضبط سياسات التعامل مع الحزم وتوجيه مستوى السيطرة (Control Plane)."
+            },
+            {
+                id: 42,
+                exhibit: null,
+                question: "Which networking function occurs on the data plane?",
+                type: "single",
+                options: [
+                    "A. facilitates spanning-tree elections",
+                    "B. sending and receiving OSPF Hello packets",
+                    "C. forwarding remote client/server traffic",
+                    "D. processing inbound SSH management traffic"
+                ],
+                correct: [2],
+                explanation: "الجواب الصحيح هو C. مستوى البيانات (Data Plane) مسؤول فعلياً عن تمرير وإعادة توجيه حركة مرور العميل/الخادم الفعلية عبر أجهزة الشبكة."
+            },
+            {
+                id: 47,
+                exhibit: null,
+                question: "A network security team noticed that an increasing number of employees are becoming victims of phishing attacks. Which security program should be implemented to mitigate the problem?",
+                type: "single",
+                options: [
+                    "A. physical access control",
+                    "B. email system patches",
+                    "C. user awareness training",
+                    "D. software firewall enabled on all PCs"
+                ],
+                correct: [2],
+                explanation: "الجواب الصحيح هو C. للحد من هجمات التصيد الاحتيالي (Phishing) التي يقع ضحيتها الموظفون، فإن البرنامج الأنسب هو التدريب على توعية المستخدمين (User awareness training)."
+            },
+            {
+                id: 48,
+                exhibit: null,
+                question: "What is a characteristic of a Layer 2 switch?",
+                type: "single",
+                options: [
+                    "A. filters based on a transport layer protocol",
+                    "B. uses the data link layer for communications",
+                    "C. tracks the number of active TCP connections",
+                    "D. provides a single broadcast domain for all connected devices"
+                ],
+                correct: [1],
+                explanation: "الجواب الصحيح هو B. محول الطبقة الثانية (Layer 2 Switch) يعمل ويعتمد على طبقة ارتباط البيانات (Data Link Layer) لتوجيه البيانات عبر عناوين الـ MAC."
+            },
+            {
+                id: 49,
+                exhibit: null,
+                question: "Which type of VPN connection is used when an employee accesses a secure server from a public Wi-Fi?",
+                type: "single",
+                options: [
+                    "A. remote",
+                    "B. router-to-router",
+                    "C. site-to-site",
+                    "D. open"
+                ],
+                correct: [0],
+                explanation: "الجواب الصحيح هو A (Remote Access VPN). يُستخدم عندما يقوم موظف بالاتصال عن بُعد بشبكة الشركة من شبكة عامة مثل Wi-Fi عام."
+            },
+            {
+                id: 50,
+                exhibit: null,
+                question: "What is the primary purpose of the first hop redundancy protocols?",
+                type: "single",
+                options: [
+                    "A. to ensure high availability of the network by providing a secondary route on the RIB at the active gateway",
+                    "B. to ensure high availability of the network by providing a transparent fail-over at the active gateway",
+                    "C. to ensure high availability of the network by providing a backup route on the CEF in case of a gateway failure",
+                    "D. to ensure high availability of the network by providing a redundant path via ARP in case of a failure of path failure"
+                ],
+                correct: [1],
+                explanation: "الجواب الصحيح هو B. بروتوكونات تكرار الهوب الأول (FHRP) تهدف لضمان التوافر العالي للشبكة عبر توفير انتقال شفاف وبديل (Transparent fail-over) عند بوابة الاتصال."
+            },
+            {
+                id: 51,
+                exhibit: null,
+                question: "Under what condition would a FlexConnect wireless architecture be preferable over other architectural choices?",
+                type: "single",
+                options: [
+                    "A. when centralized management is needed for several remote offices that lack individual WLCs",
+                    "B. when there is a need for high-precision location-based services at various remote offices",
+                    "C. when each remote office necessitates its own local WLC for network management",
+                    "D. when the connection latency to several remote offices is anticipated to surpass 300 milliseconds"
+                ],
+                correct: [0],
+                explanation: "الجواب الصحيح هو A. تُفضل هندسة FlexConnect عندما تكون هناك حاجة لإدارة مركزية لعدة مكاتب فرعية بعيدة لا تحتوي على متحكمات مستقلة (WLCs)."
+            },
+            {
+                id: 52,
+                exhibit: null,
+                question: "Which two host addresses are reserved for private use within an enterprise network? (Choose two.)",
+                type: "multiple",
+                options: [
+                    "A. 12.17.1.20",
+                    "B. 10.172.76.200",
+                    "C. 172.31.255.100",
+                    "D. 192.169.32.10",
+                    "E. 172.15.2.250"
+                ],
+                correct: [1, 2],
+                explanation: "الإجابتان الصحيحتان هما B و C. نطاقات العناوين الخاصة (Private IP Addresses) تشمل: 10.0.0.0/8 (مثل الخيار B ضمن النطاق)، و 172.16.0.0/12 (والذي يغطي الخيار C من 172.16 إلى 172.31)."
+            },
+            {
+                id: 53,
+                exhibit: null,
+                question: "How are the query parameters for a GET request passed to the REST API?",
+                type: "single",
+                options: [
+                    "A. in the authorization",
+                    "B. in the HTTP header",
+                    "C. in the request body",
+                    "D. in the URI"
+                ],
+                correct: [3],
+                explanation: "الجواب الصحيح هو D (في الـ URI). في طلبات GET لـ REST API، يتم إرسال معاملات الاستعلام (Query parameters) مباشرة ضمن رابط الـ URI (عادة بعد علامة الاستفهام `?`)."
+            },
+            {
+                id: 54,
+                exhibit: null,
+                question: "Which interface is used to send traffic to the destination network?",
+                type: "single",
+                options: [
+                    "A. F0/20",
+                    "B. F0/5",
+                    "C. F0/19",
+                    "D. F0/16"
+                ],
+                correct: [3],
+                explanation: "الجواب الصحيح هو D (F0/16). من خلال جدول التوجيه الظاهر، مسار OSPF نحو الشبكة بتكلفة أقل أو تفضيل أعلى (أو بالرجوع للرسم في الجدول) يمر عبر الواجهة F0/16 (حيث تظهر التكلفة الأقل مقارنة بالخيارات الأخرى أو كأفضل مسار نشط)."
+            },
+            {
+                id: 55,
+                exhibit: null,
+                question: "Which interface IP address serves as the tunnel source for CAPWAP packets from the WLC to an AP?",
+                type: "single",
+                options: [
+                    "A. AP-manager",
+                    "B. service",
+                    "C. virtual AP connection",
+                    "D. trunk"
+                ],
+                correct: [0],
+                explanation: "الجواب الصحيح هو A (AP-manager). في متحكمات سيسكو اللاسلكية التقليدية، واجهة الـ AP-manager هي المسؤولة عن توفير عنوان IP ليكون مصدر النفق (Tunnel source) لحزم CAPWAP المتجهة لنقاط الوصول (APs)."
+            },
+            {
+                id: 56,
+                exhibit: null,
+                question: "How does MAC learning function?",
+                type: "single",
+                options: [
+                    "A. inspects and drops frames from unknown destinations",
+                    "B. sends frames with unknown destinations to a multicast group",
+                    "C. increases security on the management VLAN",
+                    "D. enabled by default on all VLANs and interfaces"
+                ],
+                correct: [3],
+                explanation: "الجواب الصحيح هو D. عملية تعلم عناوين MAC (MAC learning) تكون مفعلة افتراضياً على جميع شبكات VLAN والواجهات في محولات سيسكو."
+            },
+            {
+                id: 57,
+                exhibit: null,
+                question: "Which virtualization technology requires a base OS installation but does not require a hypervisor?",
+                type: "single",
+                options: [
+                    "A. virtual routers",
+                    "B. virtual server",
+                    "C. container",
+                    "D. Kubernetes"
+                ],
+                correct: [2],
+                explanation: "الجواب الصحيح هو C (Container). الحاويات تشترك في نواة نظام التشغيل الأساسي (Base OS) ولا تتطلب وجود Hypervisor بخلاف الأجهزة الافتراضية التقليدية."
+            },
+            {
+                id: 60,
+                exhibit: null,
+                question: "When a WPA2-PSK WLAN is configured in the Wireless LAN Controller, what is the minimum number of characters that is required in ASCII format?",
+                type: "single",
+                options: [
+                    "A. 8",
+                    "B. 18",
+                    "C. 12",
+                    "D. 6"
+                ],
+                correct: [0],
+                explanation: "الجواب الصحيح هو A (8). الحد الأدنى لطول كلمة المرور بصيغة ASCII لشبكات WPA2-PSK هو 8 أحرف (والحد الأقصى 63 حرفاً)."
+            },
+            {
+                id: 61,
+                exhibit: null,
+                question: "What are two characteristics of a controller-based network? (Choose two.)",
+                type: "multiple",
+                options: [
+                    "A. It decentralizes the control plane, which allows each device to make its own forwarding decisions.",
+                    "B. It uses northbound and southbound APIs to communicate between architectural layers.",
+                    "C. It uses Telnet to report system issues.",
+                    "D. It moves the control plane to a central point.",
+                    "E. The administrator can make configuration updates from the CLI."
+                ],
+                correct: [1, 3],
+                explanation: "الإجابتان الصحيحتان هما B و D. الشبكات المعتمدة على المتحكمات تنقل مستوى السيطرة (Control Plane) إلى نقطة مركزية وتستخدم واجهات برمجة التطبيقات (Northbound & Southbound APIs) للتواصل."
+            },
+            {
+                id: 64,
+                exhibit: null,
+                question: "Which two encoding methods are supported by REST APIs? (Choose two.)",
+                type: "multiple",
+                options: [
+                    "A. YAML",
+                    "B. XML",
+                    "C. JSON",
+                    "D. EBCDIC",
+                    "E. SGML"
+                ],
+                correct: [1, 2],
+                explanation: "الإجابتان الصحيحتان هما B و C (XML و JSON) وهما الصياغتان الأكثر استخداماً ودعماً لتبادل البيانات في واجهات REST APIs."
+            },
+            {
+                id: 65,
+                exhibit: null,
+                question: "Why is a first-hop redundancy protocol implemented?",
+                type: "single",
+                options: [
+                    "A. to protect against default gateway failures",
+                    "B. to provide load-sharing for a multilink segment",
+                    "C. to enable multiple switches to operate as a single unit",
+                    "D. to prevent loops in a network"
+                ],
+                correct: [0],
+                explanation: "الجواب الصحيح هو A. تُنفذ بروتوكولات تكرار الهوب الأول (FHRP مثل HRP وVRRP) بهدف الحماية ضد تعطل البوابة الافتراضية (Default gateway failures) وضمان استمرارية الاتصال."
+            },
+            {
+                id: 66,
+                exhibit: null,
+                question: "What is the difference between controller-based networks and traditional networks as they relate to control-plane and/or data-plane functions?",
+                type: "single",
+                options: [
+                    "A. Controller-based networks centralize all important control-plane functions, and traditional networks distribute control-plane functions.",
+                    "B. Traditional networks centralize all important control-plane functions, and controller-based networks distribute control-plane functions.",
+                    "C. Traditional networks centralize all important data-plane functions, and controller-based networks distribute data-plane functions.",
+                    "D. Controller-based networks centralize all important data-plane functions, and traditional networks distribute data-plane functions."
+                ],
+                correct: [0],
+                explanation: "الجواب الصحيح هو A. الشبكات المعتمدة على المتحكمات تقوم بمركزة وظائف مستوى السيطرة (Control-plane)، بينما الشبكات التقليدية تقوم بتوزيعها على الأجهزة المختلفة."
+            },
+            {
+                id: 67,
+                exhibit: null,
+                question: "What is the benefit of using FHRP?",
+                type: "single",
+                options: [
+                    "A. balancing traffic across multiple gateways in proportion to their loads",
+                    "B. higher degree of availability",
+                    "C. reduced ARP traffic on the network",
+                    "D. reduced management overhead on network routers"
+                ],
+                correct: [1],
+                explanation: "الجواب الصحيح هو B. الفائدة الأساسية لاستخدام بروتوكولات FHRP هي تحقيق درجة أعلى من التوافر واستمرارية الخدمة (Higher degree of availability)."
+            },
+            {
+                id: 70,
+                exhibit: null,
+                question: "What are two recommendations for protecting network ports from being exploited when located in an office space outside of an IT closet? (Choose two.)",
+                type: "multiple",
+                options: [
+                    "A. implement port-based authentication",
+                    "B. configure static ARP entries",
+                    "C. shut down unused ports",
+                    "D. configure ports to a fixed speed",
+                    "E. enable the PortFast feature on ports"
+                ],
+                correct: [0, 2],
+                explanation: "الإجابتان الصحيحتان هما A و C. لتأمين المنافذ خارج غرفة الاتصالات، يتم تفعيل مصادقة المنافذ (Port-based authentication مثل 802.1X) وإغلاق المنافذ غير المستخدمة (Shut down unused ports)."
+            },
+            {
+                id: 71,
+                exhibit: null,
+                question: "Which two components are needed to create an Ansible script that configures a VLAN on a switch? (Choose two.)",
+                type: "multiple",
+                options: [
+                    "A. Recipe",
+                    "B. Task",
+                    "C. Cookbook",
+                    "D. Model",
+                    "E. Playbook"
+                ],
+                correct: [1, 4],
+                explanation: "الإجابتان الصحيحتان هما B و E. في أداة الأتمتة Ansible، يعتمد السكريبت أو ملف التهيئة بشكل أساسي على ملفات الـ Playbook ومجموعة المهام (Tasks) المحددة داخلها."
+            },
+            {
+                id: 73,
+                exhibit: null,
+                question: "What is the central role of a hypervisor in a virtualized environment?",
+                type: "single",
+                options: [
+                    "A. Present virtualized hardware to a guest operating system.",
+                    "B. Allow a single guest operating system to run on the physical server.",
+                    "C. Create a single library environment for many operating stems.",
+                    "D. Support many applications to run on a shared guest operating system."
+                ],
+                correct: [0],
+                explanation: "الجواب الصحيح هو A. الدور المركزي للمشغل الافتراضي (Hypervisor) هو تقديم وتهيئة الأجهزة الافتراضية لأنظمة التشغيل الضيفة (Guest operating systems)."
+            },
+            {
+                id: 74,
+                exhibit: null,
+                question: "Which action must be taken to assign a global unicast IPv6 address on an interface that is derived from the MAC address of that interface?",
+                type: "single",
+                options: [
+                    "A. explicitly assign a link-local address",
+                    "B. configure a stateful DHCPv6 server on the network",
+                    "C. enable SLAAC on an interface",
+                    "D. disable the EUI-64 bit process"
+                ],
+                correct: [2],
+                explanation: "الجواب الصحيح هو C. تفعيل تقنية SLAAC (Stateless Address Autoconfiguration) يسمح للواجهة بإنشاء عنوان IPv6 عالي المستوى (Global Unicast Address) أوتوماتيكياً باستخدام عنوان MAC عبر معيار EUI-64."
+            },
+            {
+                id: 75,
+                exhibit: null,
+                question: "Which mode must be used to configure EtherChannel between two switches without using a negotiation protocol?",
+                type: "single",
+                options: [
+                    "A. auto",
+                    "B. active",
+                    "C. on",
+                    "D. desirable"
+                ],
+                correct: [2],
+                explanation: "الجواب الصحيح هو C (on). الوضع 'on' يجبر المنافذ على تفعيل EtherChannel بشكل ثابت ودون استخدام أي بروتوكولات مفاوضة مثل PAgP أو LACP."
+            },
+            {
+                id: 76,
+                exhibit: null,
+                question: "Which cloud provided service allows an organization to install its own operating system on a virtual machine?",
+                type: "single",
+                options: [
+                    "A. infrastructure-as-a-service",
+                    "B. software-as-a-service",
+                    "C. network-as-a-service",
+                    "D. platforms-a service"
+                ],
+                correct: [0],
+                explanation: "الجواب الصحيح هو A (IaaS - Infrastructure as a Service). تتيح البنية التحتية كخدمة للمؤسسات التحكم الكامل وتثبيت أنظمة تشغيل خاصة بها على أجهزة افتراضية."
+            },
+            {
+                id: 78,
+                exhibit: null,
+                question: "What is a characteristic of spine-and-leaf architecture?",
+                type: "single",
+                options: [
+                    "A. Each device is separated by the same number of hops.",
+                    "B. It provides variable latency.",
+                    "C. It provides greater predictability on STP blocked ports.",
+                    "D. Each link between leaf switches allows for higher bandwidth."
+                ],
+                correct: [0],
+                explanation: "الجواب الصحيح هو A. في هندسة Spine-and-Leaf، يتميز التصميم بأن أي جهاز Leaf يفصله عدد ثابت ومتساوٍ من القفزات (Hops) عن أي جهاز Leaf آخر عبر طبقة الـ Spine."
+            },
+            {
+                id: 80,
+                exhibit: null,
+                question: "Which network action occurs within the data plane?",
+                type: "single",
+                options: [
+                    "A. reply to an incoming ICMP echo request",
+                    "B. compare the destination IP address to the IP routing table",
+                    "C. run routing protocols (OSPF, EIGRP, RIP, BGP)",
+                    "D. make a configuration change from an incoming NETCONF RPC"
+                ],
+                correct: [1],
+                explanation: "الجواب الصحيح هو B. مقارنة عنوان IP الوجهة بجدول التوجيه (IP routing table) لتحديد منفذ الخروج يحدث في مستوى البيانات (Data Plane أو Forwarding Plane)."
+            },
+            {
+                id: 82,
+                exhibit: null,
+                question: "What is a feature of WPA?",
+                type: "single",
+                options: [
+                    "A. TKIP/IMC encryption",
+                    "B. preshared key",
+                    "C. 802.1x authentication",
+                    "D. small Wi-Fi application"
+                ],
+                correct: [1],
+                explanation: "الجواب الصحيح هو B (Pre-shared key). تدعم حماية WPA مفتاح المشاركة المسبقة (PSK) إلى جانب مصادقة المؤسسات."
+            },
+            {
+                id: 84,
+                exhibit: null,
+                question: "What are two reasons to deploy private addressing on a network? (Choose two.)",
+                type: "multiple",
+                options: [
+                    "A. to route protected date securely via an Internet service provider",
+                    "B. to subnet addresses in an organized hierarchy",
+                    "C. to reduce network maintenance costs",
+                    "D. to segment local IP addresses from the global routing table",
+                    "E. to hide sensitive data from access users within an enterprise"
+                ],
+                correct: [1, 3],
+                explanation: "الإجابتان الصحيحتان هما B و D. العناوين الخاصة تساعد في تقسيم العناوين ضمن هرمية منظمة وعزل عناوين IP المحلية عن جدول التوجيه العالمي للإنترنت."
+            },
+            {
+                id: 86,
+                exhibit: null,
+                question: "Which two VPN technologies are recommended by Cisco for multiple branch offices and large-scale deployments? (Choose two.)",
+                type: "multiple",
+                options: [
+                    "A. clientless VPN",
+                    "B. IPsec remote access",
+                    "C. site-to-site VPN",
+                    "D. GETVPN",
+                    "E. DMVP"
+                ],
+                correct: [3, 4],
+                explanation: "الإجابتان الصحيحتان هما D و E (GETVPN و DMVPN). توصي سيسكو بهاتين التقنيتين للربط بين الفروع المتعددة والنشرات واسعة النطاق (Large-scale deployments)."
+            },
+            {
+                id: 87,
+                exhibit: null,
+                question: "An application in the network is being scaled up from 300 servers to 600. Each server requires 3 network connections to support production, backup, and management traffic. Each connection resides on a different subnet. The router configuration for the production network must be configured first using a subnet in the 10.0.0.0/8 network. Which command must be configured on the interface of the router to accommodate the requirements and limit wasted IP address space?",
+                type: "single",
+                options: [
+                    "A. ip address 10.10.10.1 255.255.254.0",
+                    "B. ip address 10.10.10.1 255.255.240.0",
+                    "C. ip address 10.10.10.1 255.255.255.240",
+                    "D. ip address 10.10.10.1 255.255.252.0"
+                ],
+                correct: [3],
+                explanation: "الجواب الصحيح هو D. بما أن عدد الخوادم سيصل إلى 600 خادم لشبكة الإنتاج، نحتاج إلى شبكة فرعية تستوعب على الأقل 600 عنوان مُضيف. القناع 255.255.252.0 (أو /22) يوفّر 1022 عنواناً قابلاً للاستخدام، وهو الخيار الأنسب الذي يلبي المتطلبات ويقلل من هدر مساحة عناوين الـ IP مقارنة بالأقنعة الأخرى."
+            },
+            {
+                id: 88,
+                exhibit: null,
+                question: "Which global command encrypts all passwords in the running configuration?",
+                type: "single",
+                options: [
+                    "A. password-encrypt",
+                    "B. enable secret",
+                    "C. enable password-encryption",
+                    "D. service password-encryption"
+                ],
+                correct: [3],
+                explanation: "الجواب الصحيح هو D (service password-encryption). يُستخدم هذا الأمر في وضع التكوين العام (Global Configuration) لتشفير كلمات المرور النصية الصريحة (Plain-text passwords) داخل ملف التكوين النشط."
+            },
+            {
+                id: 91,
+                exhibit: null,
+                question: "Which type of API allows SDN controllers to dynamically make changes to the network?",
+                type: "single",
+                options: [
+                    "A. southbound API",
+                    "B. northbound API",
+                    "C. REST API",
+                    "D. SOAP API"
+                ],
+                correct: [0],
+                explanation: "الجواب الصحيح هو A (Southbound API). واجهات البرمجة الجنوبية (Southbound APIs) هي التي تربط متحكمات SDN بأجهزة الشبكة الأساسية لتنفيذ التغييرات وإدارتها ديناميكياً."
+            },
+            {
+                id: 92,
+                exhibit: null,
+                question: "Which two principles must be considered when using per-hop behavior in QoS? (Choose two.)",
+                type: "multiple",
+                options: [
+                    "A. Shaping levels out traffic bursts by delaying excess traffic.",
+                    "B. Policing is not supported on subinterfaces.",
+                    "C. Policing is performed in the inbound and outbound directions.",
+                    "D. Shaping drops excessive traffic without adding traffic delay.",
+                    "E. Shaping and rate limit have the same effect"
+                ],
+                correct: [0, 2],
+                explanation: "الإجابتان الصحيحتان هما A و C. تقنية Shaping تقوم بتسوية التدفق عبر تأخير الحركة الزائدة، بينما عمليات Policing يمكن تنفيذها في كلا الاتجاهين (Inbound و Outbound)."
+            },
+            {
+                id: 94,
+                exhibit: null,
+                question: "What is a service that is provided by a wireless controller?",
+                type: "single",
+                options: [
+                    "A. It manages interference in a dense network.",
+                    "B. It provides Layer 3 routing between wired and wireless devices.",
+                    "C. It mitigates threats from the internet.",
+                    "D. It issues IP addresses to wired devices."
+                ],
+                correct: [0],
+                explanation: "الجواب الصحيح هو A. متحكم الشبكات اللاسلكية (Wireless LAN Controller) يقوم بإدارة التداخل والتشويش الراديوي والتحكم بالقنوات في الشبكات الكثيفة."
+            },
+            {
+                id: 96,
+                exhibit: null,
+                question: "How does automation affect network management processes?",
+                type: "single",
+                options: [
+                    "A. It interoperates with ISE to define and manage patch and update schedules.",
+                    "B. It improves the efficiency of system lifecycle management.",
+                    "C. It performs configuration updates based on user profiles.",
+                    "D. It provides a reactive support model."
+                ],
+                correct: [1],
+                explanation: "الجواب الصحيح هو B. الأتمتة تحسن كفاءة إدارة دورة حياة النظام عبر تسريع العمليات وتقليل الأخطاء البشرية."
+            },
+            {
+                id: 97,
+                exhibit: null,
+                question: "How does a network administrator securely manage an AP in lightweight mode?",
+                type: "single",
+                options: [
+                    "A. using the WLC GUI via HTTPS",
+                    "B. using the CLI via a virtual interface with SSH",
+                    "C. using the CLI via an out-of-band connection",
+                    "D. using the AP GUI via an in-band SSH connection"
+                ],
+                correct: [0],
+                explanation: "الجواب الصحيح هو A. تتم إدارة نقطة الوصول الخفيفة (Lightweight AP) مركزياً وبشكل آمن من خلال واجهة المستخدم الرسومية لـ WLC عبر بروتوكول HTTPS."
+            },
+            {
+                id: 98,
+                exhibit: null,
+                question: "What are two advantages of implementing a controller-based architecture instead of a traditional network architecture? (Choose two.)",
+                type: "multiple",
+                options: [
+                    "A. It supports complex and high-scale IP addressing schemes.",
+                    "B. It provides increased scalability and management options.",
+                    "C. It increases security against denial-of-service attacks.",
+                    "D. It enables configuration task automation.",
+                    "E. It allows for seamless connectivity to virtual machines."
+                ],
+                correct: [1, 3],
+                explanation: "الإجابتان الصحيحتان هما B و D. الهندسة المعتمدة على المتحكم توفر قابلية توسع وإدارة أكبر، وتتيح أتمتة مهام التهيئة بسهولة."
+            },
+            {
+                id: 99,
+                exhibit: null,
+                question: "Which IPsec mode provides encapsulation and encryption of the entire original IP packet on a site-to-site VPN?",
+                type: "single",
+                options: [
+                    "A. IPsec tunnel mode with AH",
+                    "B. IPsec tunnel mode with ESP",
+                    "C. IPsec transport mode with AH",
+                    "D. IPsec transport mode with ESP"
+                ],
+                correct: [1],
+                explanation: "الجواب الصحيح هو B (IPsec tunnel mode with ESP). وضع النفق (Tunnel mode) يغلف ويشفر حزمة IP الأصلية بالكامل، بينما بروتوكول ESP يوفر التشفير وضمان السرية والسلامة."
+            },
+            {
+                id: 100,
+                exhibit: null,
+                question: "Which two outcomes are predictable behaviors for HSRP? (Choose two.)",
+                type: "multiple",
+                options: [
+                    "A. The two routers share the same interface IP address, and default gateway traffic is load-balanced between them.",
+                    "B. The two routers synchronize configurations to provide consistent packet forwarding.",
+                    "C. The two routers negotiate one router as the active router and the other as the standby router.",
+                    "D. Each router has a different IP address, both routers act as the default gateway on the LAN, and traffic is load-balanced between them.",
+                    "E. The two routers share a virtual IP address that is used as the default gateway for devices on the LAN."
+                ],
+                correct: [2, 4],
+                explanation: "الإجابتان الصحيحتان هما C و E. في بروتوكول HSRP، يتفاوض الموجهان ليصبح أحدهما نشطاً (Active) والآخر احتياطياً (Standby)، ويتشاركان عنوان IP افتراضياً يُستخدم كبوابة افتراضية للأجهزة على الشبكة المحلية."
+            }
+        ];
+
+        let currentIdx = 0;
+        let score = 0;
+        let selectedOptions = [];
+        let answered = false;
+
+        const questionText = document.getElementById("question-text");
+        const questionHint = document.getElementById("question-hint");
+        const optionsList = document.getElementById("options-list");
+        const nextBtn = document.getElementById("next-btn");
+        const questionProgress = document.getElementById("question-progress");
+        const scoreTracker = document.getElementById("score-tracker");
+        const quizBox = document.getElementById("quiz-box");
+        const resultBox = document.getElementById("result-box");
+        const finalScore = document.getElementById("final-score");
+        
+        const exhibitBox = document.getElementById("exhibit-box");
+        const exhibitImg = document.getElementById("exhibit-img");
+        
+        const explanationBox = document.getElementById("explanation-box");
+        const explanationText = document.getElementById("explanation-text");
+
+        function loadQuestion() {
+            answered = false;
+            selectedOptions = [];
+            nextBtn.style.display = "none";
+            explanationBox.style.display = "none";
+            
+            const q = questions[currentIdx];
+            
+            questionProgress.innerText = `السؤال ${currentIdx + 1} من ${questions.length}`;
+            questionText.innerText = q.question;
+
+            if (q.exhibit) {
+                exhibitImg.src = q.exhibit;
+                exhibitBox.style.display = "block";
+            } else {
+                exhibitBox.style.display = "none";
+            }
+
+            if (q.type === "multiple") {
+                questionHint.innerText = "اختر خيارين (Choose two) وسيتم التحقق تلقائياً عند اختيار الخيار الثاني:";
+            } else {
+                questionHint.innerText = "";
+            }
+            
+            optionsList.innerHTML = "";
+
+            q.options.forEach((opt, index) => {
+                const li = document.createElement("li");
+                li.className = "option-item";
+                li.innerText = opt;
+                li.onclick = () => selectOption(index, li);
+                optionsList.appendChild(li);
+            });
+        }
+
+        function selectOption(index, element) {
+            if (answered) return;
+            const q = questions[currentIdx];
+
+            if (q.type === "multiple") {
+                const pos = selectedOptions.indexOf(index);
+                if (pos > -1) {
+                    selectedOptions.splice(pos, 1);
+                    element.classList.remove("selected");
+                } else {
+                    if (selectedOptions.length < 2) {
+                        selectedOptions.push(index);
+                        element.classList.add("selected");
+                    }
+                }
+                
+                if (selectedOptions.length === 2) {
+                    checkAnswer();
+                }
+            } else {
+                selectedOptions = [index];
+                element.classList.add("selected");
+                checkAnswer();
+            }
+        }
+
+        function checkAnswer() {
+            if (answered) return;
+            answered = true;
+
+            const q = questions[currentIdx];
+            const items = Array.from(optionsList.getElementsByTagName("li"));
+            let isCorrect = false;
+
+            if (q.type === "multiple") {
+                const sortedSelected = [...selectedOptions].sort();
+                const sortedCorrect = [...q.correct].sort();
+                isCorrect = JSON.stringify(sortedSelected) === JSON.stringify(sortedCorrect);
+
+                items.forEach((item, idx) => {
+                    if (q.correct.includes(idx)) {
+                        item.classList.add("correct");
+                    } else if (selectedOptions.includes(idx)) {
+                        item.classList.add("incorrect");
+                    }
+                });
+            } else {
+                const selected = selectedOptions[0];
+                isCorrect = (selected === q.correct[0]);
+
+                if (isCorrect) {
+                    items[selected].classList.add("correct");
+                } else {
+                    items[selected].classList.add("incorrect");
+                    items[q.correct[0]].classList.add("correct");
+                }
+            }
+
+            if (isCorrect) {
+                score++;
+                scoreTracker.innerText = `النتيجة: ${score}`;
+            }
+
+            items.forEach(item => item.classList.add("disabled"));
+
+            explanationText.innerText = q.explanation;
+            explanationBox.style.display = "block";
+
+            if (isCorrect) {
+                setTimeout(() => {
+                    nextQuestion();
+                }, 3000);
+            } else {
+                nextBtn.style.display = "block";
+            }
+        }
+
+        function nextQuestion() {
+            currentIdx++;
+            if (currentIdx < questions.length) {
+                loadQuestion();
+            } else {
+                quizBox.style.display = "none";
+                resultBox.style.display = "block";
+                finalScore.innerText = `${score} / ${questions.length}`;
+            }
+        }
+
+        function restartQuiz() {
+            currentIdx = 0;
+            score = 0;
+            scoreTracker.innerText = `النتيجة: 0`;
+            resultBox.style.display = "none";
+            quizBox.style.display = "block";
+            loadQuestion();
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
