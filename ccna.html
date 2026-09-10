@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار CCNA التفاعلي - النسخة الشاملة (77 سؤالاً)</title>
+    <title>اختبار CCNA التفاعلي - نظام الذكاء والتكرار اللانهائي</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -176,36 +176,19 @@
         .btn:hover {
             background: var(--primary-dark);
         }
-
-        .result-screen {
-            text-align: center;
-            display: none;
-        }
-
-        .result-screen h2 {
-            color: var(--primary);
-            font-size: 28px;
-        }
-
-        .score-badge {
-            font-size: 48px;
-            font-weight: bold;
-            color: var(--success);
-            margin: 20px 0;
-        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <header>
-            <h1>اختبار CCNA التفاعلي - النسخة الشاملة</h1>
+            <h1>اختبار CCNA التفاعلي - نظام التكرار اللانهائي الذكي</h1>
         </header>
 
         <div id="quiz-box">
             <div class="quiz-info">
-                <span id="question-progress">السؤال 1 من 77</span>
-                <span id="score-tracker">النتيجة: 0</span>
+                <span id="question-progress">السؤال رقم: 1 (لانهاي)</span>
+                <span id="score-tracker">إجمالي النقاط: 0 | الأخطاء: 0</span>
             </div>
             
             <div id="question-container">
@@ -224,19 +207,12 @@
                 </div>
             </div>
 
-            <button id="next-btn" class="btn" style="display: none;" onclick="nextQuestion()">السؤال التالي</button>
-        </div>
-
-        <div id="result-box" class="result-screen">
-            <h2>انتهى الاختبار! 🎉</h2>
-            <p>لقد أنهيت الأسئلة بنجاح. نتيجتك النهائية هي:</p>
-            <div class="score-badge" id="final-score">0 / 77</div>
-            <button class="btn" onclick="restartQuiz()">إعادة الاختبار</button>
+            <button id="next-btn" class="btn" style="display: none;" onclick="loadNextQuestion()">السؤال العشوائي التالي 🔄</button>
         </div>
     </div>
 
     <script>
-        const questions = [
+        const rawQuestions = [
             {
                 id: 1,
                 exhibit: "image_1911bf.jpg",
@@ -1113,7 +1089,7 @@
                 options: [
                     "A. The two routers share the same interface IP address, and default gateway traffic is load-balanced between them.",
                     "B. The two routers synchronize configurations to provide consistent packet forwarding.",
-                    "C. The two routers negotiate one router as the active router and the other as the standby router.",
+                    "C. The two routers synchronize configurations to provide consistent packet forwarding.",
                     "D. Each router has a different IP address, both routers act as the default gateway on the LAN, and traffic is load-balanced between them.",
                     "E. The two routers share a virtual IP address that is used as the default gateway for devices on the LAN."
                 ],
@@ -1122,8 +1098,16 @@
             }
         ];
 
-        let currentIdx = 0;
-        let score = 0;
+        // تهيئة سجل الأخطاء والأوزان لكل سؤال (الوزن الافتراضي 1)
+        let questionWeights = {};
+        rawQuestions.forEach(q => {
+            questionWeights[q.id] = 1; 
+        });
+
+        let totalAnsweredCount = 0;
+        let scoreCount = 0;
+        let errorCount = 0;
+        let currentQuestion = null;
         let selectedOptions = [];
         let answered = false;
 
@@ -1133,9 +1117,6 @@
         const nextBtn = document.getElementById("next-btn");
         const questionProgress = document.getElementById("question-progress");
         const scoreTracker = document.getElementById("score-tracker");
-        const quizBox = document.getElementById("quiz-box");
-        const resultBox = document.getElementById("result-box");
-        const finalScore = document.getElementById("final-score");
         
         const exhibitBox = document.getElementById("exhibit-box");
         const exhibitImg = document.getElementById("exhibit-img");
@@ -1143,25 +1124,45 @@
         const explanationBox = document.getElementById("explanation-box");
         const explanationText = document.getElementById("explanation-text");
 
-        function loadQuestion() {
+        // دالة لاختيار سؤال عشوائي بناءً على الأوزان (الأسئلة الخطأ تتكرر أكثر)
+        function getWeightedRandomQuestion() {
+            let totalWeight = 0;
+            rawQuestions.forEach(q => {
+                totalWeight += questionWeights[q.id];
+            });
+
+            let randomVal = Math.random() * totalWeight;
+            let currentSum = 0;
+
+            for (let q of rawQuestions) {
+                currentSum += questionWeights[q.id];
+                if (randomVal <= currentSum) {
+                    return q;
+                }
+            }
+            return rawQuestions[0];
+        }
+
+        function loadNextQuestion() {
             answered = false;
             selectedOptions = [];
             nextBtn.style.display = "none";
             explanationBox.style.display = "none";
             
-            const q = questions[currentIdx];
+            currentQuestion = getWeightedRandomQuestion();
+            totalAnsweredCount++;
             
-            questionProgress.innerText = `السؤال ${currentIdx + 1} من ${questions.length}`;
-            questionText.innerText = q.question;
+            questionProgress.innerText = `السؤال رقم: ${totalAnsweredCount} (تكرار لانهائي)`;
+            questionText.innerText = currentQuestion.question;
 
-            if (q.exhibit) {
-                exhibitImg.src = q.exhibit;
+            if (currentQuestion.exhibit) {
+                exhibitImg.src = currentQuestion.exhibit;
                 exhibitBox.style.display = "block";
             } else {
                 exhibitBox.style.display = "none";
             }
 
-            if (q.type === "multiple") {
+            if (currentQuestion.type === "multiple") {
                 questionHint.innerText = "اختر خيارين (Choose two) وسيتم التحقق تلقائياً عند اختيار الخيار الثاني:";
             } else {
                 questionHint.innerText = "";
@@ -1169,7 +1170,7 @@
             
             optionsList.innerHTML = "";
 
-            q.options.forEach((opt, index) => {
+            currentQuestion.options.forEach((opt, index) => {
                 const li = document.createElement("li");
                 li.className = "option-item";
                 li.innerText = opt;
@@ -1180,9 +1181,8 @@
 
         function selectOption(index, element) {
             if (answered) return;
-            const q = questions[currentIdx];
 
-            if (q.type === "multiple") {
+            if (currentQuestion.type === "multiple") {
                 const pos = selectedOptions.indexOf(index);
                 if (pos > -1) {
                     selectedOptions.splice(pos, 1);
@@ -1208,17 +1208,16 @@
             if (answered) return;
             answered = true;
 
-            const q = questions[currentIdx];
             const items = Array.from(optionsList.getElementsByTagName("li"));
             let isCorrect = false;
 
-            if (q.type === "multiple") {
+            if (currentQuestion.type === "multiple") {
                 const sortedSelected = [...selectedOptions].sort();
-                const sortedCorrect = [...q.correct].sort();
+                const sortedCorrect = [...currentQuestion.correct].sort();
                 isCorrect = JSON.stringify(sortedSelected) === JSON.stringify(sortedCorrect);
 
                 items.forEach((item, idx) => {
-                    if (q.correct.includes(idx)) {
+                    if (currentQuestion.correct.includes(idx)) {
                         item.classList.add("correct");
                     } else if (selectedOptions.includes(idx)) {
                         item.classList.add("incorrect");
@@ -1226,56 +1225,41 @@
                 });
             } else {
                 const selected = selectedOptions[0];
-                isCorrect = (selected === q.correct[0]);
+                isCorrect = (selected === currentQuestion.correct[0]);
 
                 if (isCorrect) {
                     items[selected].classList.add("correct");
                 } else {
                     items[selected].classList.add("incorrect");
-                    items[q.correct[0]].classList.add("correct");
+                    items[currentQuestion.correct[0]].classList.add("correct");
                 }
             }
 
+            // تعديل الأوزان وتحديث الإحصائيات
             if (isCorrect) {
-                score++;
-                scoreTracker.innerText = `النتيجة: ${score}`;
+                scoreCount++;
+                // تقليل وزن السؤال قليلاً عند الإجابة عليه بشكل صحيح (بحد أدنى 1) لتظهر الأسئلة الصحيحة بنسبة أقل
+                if (questionWeights[currentQuestion.id] > 1) {
+                    questionWeights[currentQuestion.id] -= 1;
+                }
+            } else {
+                errorCount++;
+                // مضاعفة وزن السؤال الذي أخطأت فيه ليتكرر ظهوره بشكل أكبر بكثير في المرات القادمة
+                questionWeights[currentQuestion.id] += 3;
             }
 
+            scoreTracker.innerText = `إجمالي النقاط: ${scoreCount} | الأخطاء: ${errorCount}`;
             items.forEach(item => item.classList.add("disabled"));
 
-            explanationText.innerText = q.explanation;
+            explanationText.innerText = currentQuestion.explanation;
             explanationBox.style.display = "block";
 
-            if (isCorrect) {
-                setTimeout(() => {
-                    nextQuestion();
-                }, 3000);
-            } else {
-                nextBtn.style.display = "block";
-            }
+            // إظهار زر الانتقال للسؤال العشوائي التالي فوراً
+            nextBtn.style.display = "block";
         }
 
-        function nextQuestion() {
-            currentIdx++;
-            if (currentIdx < questions.length) {
-                loadQuestion();
-            } else {
-                quizBox.style.display = "none";
-                resultBox.style.display = "block";
-                finalScore.innerText = `${score} / ${questions.length}`;
-            }
-        }
-
-        function restartQuiz() {
-            currentIdx = 0;
-            score = 0;
-            scoreTracker.innerText = `النتيجة: 0`;
-            resultBox.style.display = "none";
-            quizBox.style.display = "block";
-            loadQuestion();
-        }
-
-        loadQuestion();
+        // بدء الاختبار بالسؤال العشوائي الأول
+        loadNextQuestion();
     </script>
 </body>
 </html>
